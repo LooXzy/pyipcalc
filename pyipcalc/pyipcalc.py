@@ -88,11 +88,11 @@ def calc_network(input_ip, input_netmask):  # ADD le CIDR
     # CONVERT DECIMAL IP TO BINARY IP
     binary_ipaddress = ""
     for byte in ipaddress:
-        binary_ipaddress = binary_ipaddress + convert_decimal_to_binary(byte)
+        binary_ipaddress += convert_decimal_to_binary(byte)
 
     binary_ipnetmask = ""
     for byte in ipnetmask:
-        binary_ipnetmask = binary_ipnetmask + convert_decimal_to_binary(byte)
+        binary_ipnetmask += convert_decimal_to_binary(byte)
 
     # FIND CIDR
     tab_ipnetmask = []
@@ -107,8 +107,14 @@ def calc_network(input_ip, input_netmask):  # ADD le CIDR
     for i in binary_ipaddress:
         tab_ipaddress.append(i)
 
+
     get_network_part = tab_ipaddress[cidr_netmask:]
-    print(get_network_part)
+
+    network = ""
+    for i in get_network_part:
+        network = network + i.replace(i, "0")
+
+    print(network)
 
     return binary_ipaddress, binary_ipnetmask, cidr_netmask
 
@@ -117,6 +123,6 @@ if __name__ == '__main__':
     #print(calc_nbr_host(24))
     #print(convert_decimal_to_binary(192))
     #print(calc_netmask_with_nbr_hote(10))
-    ip = "192.168.20.0"
+    ip = "192.168.20.12"
     netmask = "255.255.255.0"
     print(calc_network(ip, netmask))
